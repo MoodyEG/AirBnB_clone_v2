@@ -3,9 +3,17 @@
 from models.base_model import BaseModel, Base
 from models.review import Review
 from sqlalchemy import Column, Float, ForeignKey  # type: ignore
-from sqlalchemy import Integer, String  # type: ignore
+from sqlalchemy import Integer, String, Table  # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from os import getenv
+
+
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60), ForeignKey("places.id"),
+                             primary_key=True, nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id"),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -25,15 +33,34 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", backref="places",
                                cascade="all, delete, delete-orphan")
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False,
+                                 back_populates="place_amenities")
     else:
         @property
         def reviews(self):
-            """ Returns list of reviews.id """
+            """ Getter """
             from models import storage
-
-
             rev_list = []
             for rev in storage.all(Review).values():
                 if rev.place_id == self.id:
                     rev_list.append(rev)
             return rev_list
+
+        @property
+        def amenities(self):
+            """ Getter """
+            from models import storage
+            ami_list = []
+            for ami in storage.all(Amenity).value():  # type: ignore
+                if ami.place_id == self.id:
+                    ami_list.append(ami)
+            return ami_list
+
+        @amenities.setter
+        def amenities(self, obj=None):
+            """ Setter """
+            if obj:
+                if obj.id not in self.amenity_ids\
+                     and type(obj) == Amenity:  # type: ignore
+                    self.amenity_ids.append(obj.id)

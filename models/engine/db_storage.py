@@ -32,7 +32,7 @@ class DBStorage:
         """ Query on the current database session """
         new_dic = {}
         classes = {"State": State, "User": User, "Place": Place,
-                   "City": City, "Review": Review}
+                   "City": City, "Review": Review, "Amenity": Amenity}
         if not cls or cls == "":
             for key, value in classes.items():
                 query = self.__session.query(value)
