@@ -31,7 +31,7 @@ class DBStorage:
     def all(self, cls=None):
         """ Query on the current database session """
         new_dic = {}
-        classes = {'State': State,
+        classes = {'State': State, 'User': User, "Place": Place,
                    'City': City}
         if not cls or cls == "":
             for key, value in classes.items():
