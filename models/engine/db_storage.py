@@ -23,7 +23,7 @@ class DBStorage:
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
         environ = getenv("HBNB_ENV", "none")
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
             user, pwd, host, db), pool_pre_ping=True)
         if environ == "test":
             Base.metadata.drop_all(self.__engine)
@@ -31,8 +31,8 @@ class DBStorage:
     def all(self, cls=None):
         """ Query on the current database session """
         new_dic = {}
-        classes = {'State': State, 'User': User, "Place": Place,
-                   'City': City}
+        classes = {"State": State, "User": User, "Place": Place,
+                   "City": City, "Review": Review}
         if not cls or cls == "":
             for key, value in classes.items():
                 query = self.__session.query(value)
