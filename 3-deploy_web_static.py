@@ -11,7 +11,6 @@ from time import strftime
 
 
 env.hosts = ['52.23.178.135', '100.25.47.15']
-env.user = "ubuntu"
 
 
 def deploy():
