@@ -26,6 +26,8 @@ def do_pack():
         local("mkdir -p versions")
         filename = "versions/web_static_{}.tgz".format(timenow)
         local("tar -cvzf {} web_static/".format(filename))
+        print("web_static packed: {} -> {} Bytes"
+              .format(filename, os.stat(filename).st_size))
         return filename
     except Exception:
         return None
