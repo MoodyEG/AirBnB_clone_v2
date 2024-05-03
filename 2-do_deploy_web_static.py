@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-""" Main 
-Usage: 
+""" Main
+Usage:
 fab -f 2-do_deploy_web_static.py
 do_deploy:archive_path=versions/web_static_20170315003959.tgz
 -i my_ssh_private_key -u ubuntu
@@ -31,5 +31,5 @@ def do_deploy(archive_path):
         run("ln -s {} {}".format(path_no_ext, symlink))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
         return False
