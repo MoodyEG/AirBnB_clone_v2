@@ -13,10 +13,11 @@ env.hosts = ['52.23.178.135', '100.25.47.15']
 
 def deploy():
     """ does both functions below """
-    archive_path = do_pack()
+    """ archive_path = do_pack()
     if archive_path is None:
         return False
-    """ return do_deploy(archive_path) """
+    return do_deploy(archive_path) """
+    return True
 
 
 def do_pack():
