@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 """ Main
 Usage:
-fab -f 2-do_deploy_web_static.py
-do_deploy:archive_path=versions/web_static_20170315003959.tgz
--i my_ssh_private_key -u ubuntu
+fab -f 3-deploy_web_static.py deploy -i my_ssh_private_key -u ubuntu
 """
 from fabric.api import local, env, put, run # type: ignore
 import os.path
@@ -29,7 +27,7 @@ def do_pack():
         filename = "versions/web_static_{}.tgz".format(timenow)
         local("tar -cvzf {} web_static/".format(filename))
         return filename
-    except:
+    except Exception:
         return None
 
 
@@ -52,5 +50,5 @@ def do_deploy(archive_path):
         run("ln -s {} {}".format(path_no_ext, symlink))
         print("New version deployed!")
         return True
-    except:
+    except Exception:
         return False
