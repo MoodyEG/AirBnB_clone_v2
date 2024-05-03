@@ -23,9 +23,9 @@ def do_pack():
     """generates a .tgz archive from the contents of the web_static"""
     timenow = strftime("%Y%m%d%H%M%S")
     try:
-        local("mkdir -p versions")
+        local("sudo mkdir -p versions")
         filename = "versions/web_static_{}.tgz".format(timenow)
-        local("tar -cvzf {} web_static/".format(filename))
+        local("sudo tar -cvzf {} web_static/".format(filename))
         print("web_static packed: {} -> {} Bytes"
               .format(filename, os.stat(filename).st_size))
         return filename
@@ -43,13 +43,13 @@ def do_deploy(archive_path):
         path_no_ext = "/data/web_static/releases/{}/".format(no_ext)
         symlink = "/data/web_static/current"
         put(archive_path, "/tmp/")
-        run("mkdir -p {}".format(path_no_ext))
-        run("tar -xzf /tmp/{} -C {}".format(filename, path_no_ext))
-        run("rm /tmp/{}".format(filename))
-        run("mv {}web_static/* {}".format(path_no_ext, path_no_ext))
-        run("rm -rf {}web_static".format(path_no_ext))
-        run("rm -rf {}".format(symlink))
-        run("ln -s {} {}".format(path_no_ext, symlink))
+        run("sudo mkdir -p {}".format(path_no_ext))
+        run("sudo tar -xzf /tmp/{} -C {}".format(filename, path_no_ext))
+        run("sudo rm /tmp/{}".format(filename))
+        run("sudo mv {}web_static/* {}".format(path_no_ext, path_no_ext))
+        run("sudo rm -rf {}web_static".format(path_no_ext))
+        run("sudo rm -rf {}".format(symlink))
+        run("sudo ln -s {} {}".format(path_no_ext, symlink))
         print("New version deployed!")
         return True
     except Exception:
