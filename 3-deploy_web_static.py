@@ -3,7 +3,7 @@
 Usage:
 fab -f 3-deploy_web_static.py deploy -i my_ssh_private_key -u ubuntu
 """
-from fabric.api import local, env, put, run # type: ignore
+from fabric.api import local, env, put, run  # type: ignore
 import os.path
 from time import strftime
 
