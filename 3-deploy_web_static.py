@@ -5,7 +5,7 @@ fab -f 2-do_deploy_web_static.py
 do_deploy:archive_path=versions/web_static_20170315003959.tgz
 -i my_ssh_private_key -u ubuntu
 """
-from fabric.api import *
+from fabric.api import local, env, put, run # type: ignore
 import os.path
 from time import strftime
 
@@ -52,5 +52,5 @@ def do_deploy(archive_path):
         run("ln -s {} {}".format(path_no_ext, symlink))
         print("New version deployed!")
         return True
-    except Exception:
+    except:
         return False
