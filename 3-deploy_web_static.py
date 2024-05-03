@@ -43,7 +43,6 @@ def do_deploy(archive_path):
         path_no_ext = "/data/web_static/releases/{}/".format(no_ext)
         symlink = "/data/web_static/current"
         put(archive_path, "/tmp/")
-        run("sudo chown -R ubuntu:ubuntu /data/")
         run("mkdir -p {}".format(path_no_ext))
         run("tar -xzf /tmp/{} -C {}".format(filename, path_no_ext))
         run("rm /tmp/{}".format(filename))
