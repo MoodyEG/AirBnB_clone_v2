@@ -15,11 +15,8 @@ env.hosts = ['52.23.178.135', '100.25.47.15']
 
 def deploy():
     """ does both functions below """
-    try:
-        archive_path = do_pack()
-        if archive_path is None:
-            return False
-    except Exception:
+    archive_path = do_pack()
+    if archive_path is None:
         return False
     return do_deploy(archive_path)
 
@@ -32,7 +29,7 @@ def do_pack():
         filename = "versions/web_static_{}.tgz".format(timenow)
         local("tar -cvzf {} web_static/".format(filename))
         return filename
-    except Exception:
+    except:
         return None
 
 
