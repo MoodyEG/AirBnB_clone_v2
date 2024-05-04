@@ -1,4 +1,11 @@
 # Puppet for setup
+user { 'ubuntu':
+  ensure     => 'present',
+  managehome => true,
+}
+group { 'ubuntu':
+  ensure => 'present',
+}
 exec { 'install':
   provider => shell,
   command  => 'sudo apt-get update -y ; sudo apt-get install nginx -y ; sudo service nginx start ; \
