@@ -13,7 +13,8 @@ def states():
     """Displays a HTML page with a list of all
     State objects in DBStorage sorted by name (A->Z)"""
     states = storage.all(State).values()
-    return render_template("9-states.html", states=states)
+    flag = 1
+    return render_template("9-states.html", states=states, flag=flag)
 
 
 @app.route("/states/<id>", strict_slashes=False)
