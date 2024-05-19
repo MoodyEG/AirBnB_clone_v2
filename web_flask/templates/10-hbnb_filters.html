@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+        <link rel="stylesheet" href="{{ url_for('static', filename='6-filters.css') }}">
+        <style>
+           .popover {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+        </style>
+    </HEAD>
+    <BODY>
+        <H1>HBNB filters</H1>
+        <H3>States</H3>
+        <UL>
+        {% for state in states | sort(attribute='name') %}
+            <LI>{{ state.name }} (<H4>&nbsp;</H4>)
+            <UL>
+            {% for city in state.cities | sort(attribute='name') %}
+                <LI>{{ city.name }}</LI>
+            {% endfor %}
+            </UL>
+        {% endfor %}
+        </UL>
+        <H3>Amenities</H3>
+        <UL>
+        {% for amenity in amenities | sort(attribute='name') %}
+            <LI>{{ amenity.name }} (<H4>&nbsp;</H4>)
+        {% endfor %}
+        </UL>
+    </BODY>
+</HTML>
