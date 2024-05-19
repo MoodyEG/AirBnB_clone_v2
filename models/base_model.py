@@ -30,6 +30,10 @@ class BaseModel:
                     setattr(self, key, value)
             if not self.id:
                 self.id = str(uuid.uuid4())
+            if "created_at" not in kwargs:
+                self.created_at = datetime.now()
+            if "updated_at" not in kwargs:
+                self.updated_at = datetime.now()
             self.__dict__.update(kwargs)
 
     def __str__(self):
@@ -65,3 +69,4 @@ class BaseModel:
         """ Deletes the current instance from the storage """
         from models import storage
         storage.delete(self)
+
