@@ -24,7 +24,7 @@ def state(id):
     for s in storage.all(State).values():
         if s.id == id:
             state = s
-    return render_template("9-states.html", state=state)
+    return render_template("9-states.html", state=state, states=None)
 
 
 @app.teardown_appcontext
