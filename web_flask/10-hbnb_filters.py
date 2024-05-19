@@ -14,10 +14,9 @@ app = Flask(__name__)
 def hbnb_filters():
     """ Filters """
     states = storage.all(State).values()
-    cities = storage.all(City).values()
     amenities = storage.all(Amenity).values()
     return render_template("10-hbnb_filters.html",
-                           states=states, cities=cities, amenities=amenities)
+                           states=states, amenities=amenities)
 
 
 @app.teardown_appcontext
