@@ -19,7 +19,8 @@ class State(BaseModel, Base):
         with state_id equals to the current State.id """
         from models import storage
         city_list = []
-        for name in storage.all("City").values():
+        for name in storage.all(City).values():
             if name.state_id == self.id:
                 city_list.append(name)
         return city_list
+
