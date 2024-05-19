@@ -42,7 +42,7 @@ class DBStorage:
                     new_dic[key] = data
             return new_dic
         else:
-            query = self.__session.query(classes[cls])
+            query = self.__session.query(cls)
             for data in query:
                 key = "{}.{}".format(data.__class__.__name__, data.id)
                 new_dic[key] = data
@@ -67,3 +67,7 @@ class DBStorage:
         sess = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess)
         self.__session = Session()
+
+    def close(self):
+        """ Calls remove() """
+        self.__session.close()

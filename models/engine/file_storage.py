@@ -48,7 +48,6 @@ class FileStorage:
                     'Review': Review
                   }
         try:
-            temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
@@ -62,3 +61,7 @@ class FileStorage:
             key = type(obj).__name__ + '.' + obj.id
             del FileStorage.__objects[key]
             self.save()
+
+    def close(self):
+        """Calls reload() method """
+        self.reload()
